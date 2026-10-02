@@ -6,6 +6,7 @@ def main():
 
     print(g1.__dict__)
     print(m1.__dict__)
+    print(m1)
 
 
 
