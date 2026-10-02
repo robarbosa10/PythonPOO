@@ -8,45 +8,59 @@ class Personagem(ABC):
         self.mana = 100
         self.golpes = []
 
-    def atacar(self, alvo, forca):
-        if(self.vida > 0 and alvo.vida > 0):
-            alvo.vida = alvo.vida - forca
-            self.mana = self.mana - forca
-            print(f"---{self.nome}---\nVIDA = {self.vida}\nMANA = {self.mana}\n atacou {alvo.nome} e agora tem vida de {alvo.vida}")
-            print(f"{self.nome} atacou {alvo.nome} e agora tem vida de {alvo.vida}")
-
-    def receber_ataque(self):
-        pass
+    def atacar(self, alvo):
+        self.escolha_golpes(alvo)
 
     def escolha_golpes(self, alvo):
-        print("ESCOLHA O SEU GOLPE")
-        nmr = 0
-        for golpe in self.golpes:
-            print(f"{nmr} : {golpe}")
-            nmr += 1
-        opcao= int(input("Qual o numero do golpe? "))
-        DADO = randint(1, 7)
-        if(DADO < 3):
-            print(f"Golpe = {self.golpes[opcao]} dado caiu no numero {DADO} dano leve")
-            forca_golpe = 10
-            self.mana = self.mana - 5
-            alvo.vida -= forca_golpe
-        elif(DADO >= 3 and DADO <=6):
-            print(f"Golpe = {self.golpes[opcao]} dado caiu no numero {DADO} dano moderado")
-            forca_golpe = 30
-            self.mana = self.mana - 20
-            alvo.vida -= forca_golpe
-        elif(DADO == 7):
-            print(f"Golpe = {self.golpes[opcao]} dado caiu no numero {DADO} dano PESADO")
-            forca_golpe = 50
-            self.mana = self.mana - 50
-            alvo.vida -= forca_golpe
-        print(f"*****{self.nome} | {alvo.nome}")
-        print(f"VIDA = {self.vida} | {alvo.vida}")
-        print(f"MANA = {self.mana} |{alvo.mana}")
+        if(self.vida > 0 and alvo.vida > 0):
+            print("ESCOLHA O SEU GOLPE")
+            nmr = 0
+            for golpe in self.golpes:
+                print(f"{nmr} : {golpe}")
+                nmr += 1
+            opcao= int(input("Qual o numero do golpe? "))
+            DADO = randint(1, 7)
 
-    def receber_dano(self, dano):
-        pass
+            if(DADO < 3):
+                print(f"Golpe = {self.golpes[opcao]}")
+                print(f"Dado caiu no numero {DADO} dano BAIXO")
+                print(f"*-*-*-*-*-*-*--*-*--*-*-*-*-*-*")
+                forca_golpe = 10
+                if forca_golpe <= self.mana:
+                    self.mana = self.mana - 10
+                    alvo.vida -= forca_golpe
+                else:
+                    print("Erro, voce nao tem mais MANA")
+                    pass
+            elif(DADO >= 3 and DADO <=6):
+                print(f"Golpe = {self.golpes[opcao]}")
+                print(f"Dado caiu no numero {DADO} dano MODERADO")
+                print(f"*-*-*-*-*-*-*--*-*--*-*-*-*-*-*")
+                forca_golpe = 30
+                if forca_golpe <= self.mana:
+                    self.mana = self.mana - 30
+                    alvo.vida -= forca_golpe
+                else:
+                    print("Erro, voce nao tem mais MANA")
+                    pass
+            elif(DADO == 7):
+                print(f"Golpe = {self.golpes[opcao]}")
+                print(f"Dado caiu no numero {DADO} dano PESADO")
+                print(f"*-*-*-*-*-*-*--*-*--*-*-*-*-*-*")
+                forca_golpe = 50
+                if forca_golpe <= self.mana:
+                    self.mana = self.mana - 50
+                    alvo.vida -= forca_golpe
+                else:
+                    print("Erro, voce nao tem mais MANA")
+                    pass
+            print(f"***** {self.nome} atacou {alvo.nome} *****")
+            print(f"VIDA DE {self.nome}: {self.vida}")
+            print(f"VIDA DE {alvo.nome}: {alvo.vida}")
+            print(f"MANA DE {self.nome}: {self.mana}")
+            print(f"MANA DE {alvo.nome}: {alvo.mana}")
+        else:
+            print("JOGO TERMINOU !!!! ")
 
     @abstractmethod
     def curar(self):
@@ -55,7 +69,7 @@ class Personagem(ABC):
 class Guerreiro(Personagem):
     def __init__(self, nome):
         super().__init__(nome)
-        self.golpes = ["espada de dragao", "chute da serpente"]
+        self.golpes = ["ESPADA DO DRAGAO", "CHUTE DA SERPENTE"]
 
 
 
@@ -69,7 +83,7 @@ class Guerreiro(Personagem):
 class Mago(Personagem):
     def __init__(self, nome):
         super().__init__(nome)
-        self.golpes = ["raio congelante", "meteoro de pegasus"]
+        self.golpes = ["RAIO CONGELANTE", "METEORO DE FOGO"]
 
 
 
