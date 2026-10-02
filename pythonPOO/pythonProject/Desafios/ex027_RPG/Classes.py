@@ -23,3 +23,6 @@ class Guerreiro(Personagem):
 
 class Mago(Personagem):
     pass
+
+    def curar(self):
+        pass
