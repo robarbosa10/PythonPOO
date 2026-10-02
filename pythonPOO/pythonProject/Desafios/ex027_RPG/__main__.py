@@ -1,7 +1,9 @@
-
+from Classes import Guerreiro, Mago
 
 def main():
-    pass
+    g1 = Guerreiro("Link", 5000, "ok")
+
+    print(g1.__dict__)
 
 
 

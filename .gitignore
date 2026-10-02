@@ -1,0 +1,25 @@
+# PyCharm
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+ENV/
+
+# Variáveis de ambiente
+.env
+.env.*
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
