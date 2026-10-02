@@ -1,12 +1,12 @@
 from Classes import Guerreiro, Mago
 
 def main():
-    g1 = Guerreiro("Link", 5000, "ok")
-    m1 = Mago("zelda", 5000, "asd")
+    g1 = Guerreiro("Link")
+    m1 = Mago("Zelda")
 
-    print(g1.__dict__)
-    print(m1.__dict__)
-    print(m1)
+    """g1.atacar(m1, 40)"""
+
+    g1.escolha_golpes(m1)
 
 
 
