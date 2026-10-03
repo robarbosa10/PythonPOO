@@ -6,12 +6,73 @@ class Personagem(ABC):
         self.nome = nome
         self.vida = 100
         self.mana = 100
+        self.dinheiro = 1000
         self.golpes = []
+        self.forcaGolpes = [10, 30, 50]
 
     def atacar(self, alvo):
-        self.escolha_golpes(alvo)
+        if (self.vida > 0 and alvo.vida > 0):
+            print("ESCOLHA O SEU GOLPE")
+            nmr = 0
+            for golpe in self.golpes:
+                print(f"{nmr} : {golpe}")
+                nmr += 1
+                pass
 
-    def escolha_golpes(self, alvo):
+
+    def atributos(self):
+        print(f"---*{self.nome}*---")
+        print(f"VIDA = {self.vida}")
+        print(f"MANA = {self.mana}")
+        print(f"DINHEIRO = R${self.dinheiro}")
+
+    def opcoesBatalha(self, alvo):
+        opcao = int(input(
+            "1 = ATACAR\n"
+            "2 = CURAR\n"
+            "3 = MANA\n"
+            "4 = ATRIBUTOS\n"
+            "5 = PASSAR RODADA\n"
+        ))
+
+        while opcao != 5:
+
+            while opcao > 5 or opcao < 1:
+                print("OPÇÃO ERRADA, ESCOLHA NOVAMENTE.")
+                print(
+                    "1 = ATACAR\n"
+                    "2 = CURAR\n"
+                    "3 = MANA\n"
+                    "4 = ATRIBUTOS\n"
+                    "5 = PASSAR RODADA"
+                )
+                opcao = int(input("Qual a opção? "))
+
+            if opcao == 1:
+                self.atacar(alvo)
+
+            elif opcao == 2:
+                self.curar()
+
+            elif opcao == 3:
+                self.recuperarMana()
+
+            elif opcao == 4:
+                self.atributos()
+
+            # Pede uma nova opção para a próxima rodada
+            opcao = int(input(
+                "\n1 = ATACAR\n"
+                "2 = CURAR\n"
+                "3 = MANA\n"
+                "4 = ATRIBUTOS\n"
+                "5 = PASSAR RODADA\n"
+                "Qual a opção? "
+            ))
+
+        DADO = randint(1, 7)
+
+    """def escolha_golpes(self, alvo):
         if(self.vida > 0 and alvo.vida > 0):
             print("ESCOLHA O SEU GOLPE")
             nmr = 0
@@ -60,10 +121,60 @@ class Personagem(ABC):
             print(f"MANA DE {self.nome}: {self.mana}")
             print(f"MANA DE {alvo.nome}: {alvo.mana}")
         else:
-            print("JOGO TERMINOU !!!! ")
-
-    @abstractmethod
+            print("JOGO TERMINOU !!!! ")"""
     def curar(self):
+        opcao = int(input("1 = ATADURA PEQUENA (25% DE MANA) R$ 300,00\n2 - ATADURA GRANDE (50% MANA) R$ 500,00"))
+        while (opcao > 4 or opcao < 0):
+            print("opcao errada, tente novamente !")
+            opcao = input("1 = ATADURA PEQUENA (25% DE MANA) R$ 300,00\n2 - ATADURA GRANDE (50% MANA) R$ 500,00")
+        if (opcao == 1 and self.dinheiro >= 300 and self.vida != 100):
+            self.dinheiro = self.dinheiro - 300
+            cura = self.vida * (25 / 100)
+            if (self.vida + cura > 100):
+                self.vida = 100
+            else:
+                self.vida += cura
+            print(f"recebeu {cura}% de cura. SUA VIDA É DE {self.vida}% dinheiro R${self.dinheiro:.2f}")
+        elif (opcao == 2 and self.dinheiro > 500 and self.vida != 100):
+            self.dinheiro = self.dinheiro - 500
+            cura = self.vida * (50 / 100)
+            if (self.vida + cura > 100):
+                self.vida = 100
+            else:
+                self.vida += cura
+            print(f"recebeu {cura}% de cura. SUA VIDA É DE {self.vida}% dinheiro R${self.dinheiro:.2f}")
+        else:
+            print("Voce nao tem dinheiro o suficiente ou sua VIDA esta em 100%.")
+            pass
+
+
+    def recuperarMana(self):
+        opcao = int(input("1 = MANA PEQUENA (25% DE MANA) R$ 300,00\n2 - MANA GRANDE (50% MANA) R$ 500,00"))
+        while (opcao > 4 or opcao < 0):
+            print("opcao errada, tente novamente !")
+            opcao = input("1 = MANA PEQUENA (25% DE MANA) R$ 300,00\n2 - MANA GRANDE (50% MANA) R$ 500,00")
+        if (opcao == 1 and self.dinheiro >= 300 and self.mana != 100):
+            self.dinheiro = self.dinheiro - 300
+            cura = self.mana * (25 / 100)
+            if (self.mana + cura > 100):
+                self.mana = 100
+            else:
+                self.mana += cura
+            print(f"recebeu {cura}% de MANA. SUA MANA É DE {self.mana}% dinheiro R${self.dinheiro:.2f}")
+        elif (opcao == 1 and self.dinheiro >= 500 and self.mana != 100):
+            self.dinheiro = self.dinheiro - 500
+            cura = self.mana * (50 / 100)
+            if (self.mana + cura > 100):
+                self.mana = 100
+            else:
+                self.mana += cura
+            print(f"recebeu {cura}% de cura. SUA VIDA É DE {self.mana}% dinheiro R${self.dinheiro:.2f}")
+        else:
+
+            print("Voce nao tem dinheiro o suficiente ou sua MANA está em 100%.")
+            pass
+
+    def receber_golpe(self):
         pass
 
 class Guerreiro(Personagem):
@@ -71,26 +182,10 @@ class Guerreiro(Personagem):
         super().__init__(nome)
         self.golpes = ["ESPADA DO DRAGAO", "CHUTE DA SERPENTE"]
 
-
-
-    def curar(self):
-        cura = randint(1, 100)
-        if(self.vida + cura > 100):
-            self.vida = 100
-        else:
-            self.vida += cura
-        print(f"{self.nome} usou ataduras e recebeu {cura} pontos de vida e agora tem {self.vida} ")
 class Mago(Personagem):
     def __init__(self, nome):
         super().__init__(nome)
         self.golpes = ["RAIO CONGELANTE", "METEORO DE FOGO"]
 
-
-
-    def curar(self):
-        cura = randint(1, 100)
-        if (self.vida + cura > 100):
-            self.vida = 100
-        else:
-            self.vida += cura
-        print(f"{self.nome} usou magia de cura e recebeu {cura} pontos de vida e agora tem {self.vida} ")
+    def recuperarMana(self):
+        pass
