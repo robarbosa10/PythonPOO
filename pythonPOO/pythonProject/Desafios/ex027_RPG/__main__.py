@@ -8,6 +8,8 @@ def main():
     #g1.opcoesBatalha(m1)
 
 
+
+
     while op != 10:
         if op % 2 == 1:
             print("---VEZ DO JOGADOR 1---")
