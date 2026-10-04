@@ -5,18 +5,18 @@ def main():
     m1 = Mago("Zelda")
     op = 1
 
-    g1.opcoesBatalha(m1)
+    #g1.opcoesBatalha(m1)
 
 
-    """while op != 10:
+    while op != 10:
         if op % 2 == 1:
             print("---VEZ DO JOGADOR 1---")
             g1.atacar(m1)
         else:
             print("---VEZ DO JOGADOR 2---")
-            m1.atacar(g1)
+            m1.opcoesBatalha(g1)
 
-        op += 1"""
+        op += 1
 
 
 if __name__ == "__main__":

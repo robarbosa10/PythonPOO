@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from math import radians
 from random import randint, choice
 
 class Personagem(ABC):
@@ -8,16 +9,36 @@ class Personagem(ABC):
         self.mana = 100
         self.dinheiro = 1000
         self.golpes = []
-        self.forcaGolpes = [10, 30, 50]
+
 
     def atacar(self, alvo):
         if (self.vida > 0 and alvo.vida > 0):
-            print("ESCOLHA O SEU GOLPE")
-            nmr = 0
-            for golpe in self.golpes:
-                print(f"{nmr} : {golpe}")
-                nmr += 1
-                pass
+            golpeAleatorio = randint(1, 7)
+            if(self.mana < 10):
+                alvo.vida = alvo.vida - 5
+            if(golpeAleatorio < 3):
+               self.mana = self.mana - 10
+               alvo.vida = alvo.vida - 10
+            if (golpeAleatorio >= 3 and golpeAleatorio <= 6):
+                self.mana = self.mana - 30
+                alvo.vida = alvo.vida - 30
+            if (golpeAleatorio == 7):
+                self.mana = self.mana - 50
+                alvo.vida = alvo.vida - 50
+        else:
+            print("JOGO ENCERRADO")
+            return
+
+
+        print(f"JOGADOR 1 - JOGADOR 2")
+        print(f"vida = {self.vida}  | {alvo.vida}")
+        print(f"mana = {self.mana}  | {alvo.mana}")
+        print(f"dinheiro = {self.dinheiro}  | {alvo.dinheiro}")
+
+    def encerrar(self):
+        print(f"JOGO ENCERRADO")
+
+
 
 
     def atributos(self):
@@ -34,9 +55,7 @@ class Personagem(ABC):
             "4 = ATRIBUTOS\n"
             "5 = PASSAR RODADA\n"
         ))
-
         while opcao != 5:
-
             while opcao > 5 or opcao < 1:
                 print("OPÇÃO ERRADA, ESCOLHA NOVAMENTE.")
                 print(
@@ -50,17 +69,12 @@ class Personagem(ABC):
 
             if opcao == 1:
                 self.atacar(alvo)
-
             elif opcao == 2:
                 self.curar()
-
             elif opcao == 3:
                 self.recuperarMana()
-
             elif opcao == 4:
                 self.atributos()
-
-            # Pede uma nova opção para a próxima rodada
             opcao = int(input(
                 "\n1 = ATACAR\n"
                 "2 = CURAR\n"
@@ -174,8 +188,7 @@ class Personagem(ABC):
             print("Voce nao tem dinheiro o suficiente ou sua MANA está em 100%.")
             pass
 
-    def receber_golpe(self):
-        pass
+
 
 class Guerreiro(Personagem):
     def __init__(self, nome):
@@ -186,6 +199,3 @@ class Mago(Personagem):
     def __init__(self, nome):
         super().__init__(nome)
         self.golpes = ["RAIO CONGELANTE", "METEORO DE FOGO"]
-
-    def recuperarMana(self):
-        pass
