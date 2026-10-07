@@ -1,0 +1,26 @@
+class Avaliacao():
+    def __init__(self, nome, disciplina):
+        self.nome = nome
+        self.disciplina = disciplina
+        self._nota = 0
+
+    @property
+    def nota(self):
+        return self._nota
+    @nota.setter
+    def nota(self, nota):
+        if 0 <= nota <= 10:
+            self._nota = nota
+        else:
+            print("NOTA INVALIDA")
+
+
+
+    def setNota(self, nota):
+        if 0 <= nota <= 10:
+            self._nota = nota
+        else:
+            print("nota invalida")
+
+    def getNota(self):
+        return self._nota
