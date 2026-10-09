@@ -1,3 +1,7 @@
+from os import getenv
+
+from Carrinho import Carrinho
+
 class Produto:
     def __init__(self, nome, preco, estoque):
         self.__nome = nome
@@ -23,6 +27,7 @@ class Produto:
         else:
             self.__estoque = estoque
 
-    def mostrarProduto(self):
-        print(f"Produto = {self.getNome()}. valor = R${self.getPreco():.2f}. com um estoque de {self.getEstoque()} unidades.")
-
+    def retirar_estoque(self, qtd):
+        if(self.getEstoque() >= qtd):
+            self.setEstoque(self.getEstoque() - qtd)
+            print(f"Estoque atual {self.getEstoque()}")
