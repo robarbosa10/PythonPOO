@@ -7,6 +7,12 @@ class Produto:
         self.__nome = nome
         self.__preco = preco
         self.__estoque = estoque
+        self.__addCarrinho = 0
+
+    def getAddCarrinho(self):
+        return self.__addCarrinho
+    def setAddCarrinho(self, add):
+        self.__addCarrinho = add
 
     def getNome(self):
         return self.__nome
@@ -29,5 +35,8 @@ class Produto:
 
     def retirar_estoque(self, qtd):
         if(self.getEstoque() >= qtd):
+            self.setAddCarrinho(qtd)
             self.setEstoque(self.getEstoque() - qtd)
-            print(f"Estoque atual {self.getEstoque()}")
+
+
+
