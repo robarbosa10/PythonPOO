@@ -18,5 +18,5 @@ class Livro():
 l1 = Livro("Ok", 20)
 
 l1.avancarPaginas(5)
-l1
+print(l1.pagAtual)
 l1.avancarPaginas(20)

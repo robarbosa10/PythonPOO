@@ -19,3 +19,8 @@ class Carrinho:
             print(f"{prod.getNome()} x {prod.getAddCarrinho()} = R${prod.getPreco() * prod.getAddCarrinho():.2f}")
             valor_total = valor_total + (prod.getAddCarrinho() * prod.getPreco())
         print(f"VALOR TOTAL = R${valor_total:.2f}")
+
+    def mostrarCarrinho(self):
+        for produto in self.__produto:
+            produto.mostrarProduto()
+
